@@ -12,21 +12,6 @@ router.get('/:id',  function(req, res) {
     userController.findById(req, res)
 });
 
-//create user TODO need token
-router.put('/create', function(req, res) {
-    userController.create(req, res)
-});
-
-//create admin TODO need secret_access
-router.put('/createAdmin', function(req, res) {
-    userController.createAdmin(req, res)
-});
-
-//authenticate user
-router.post('/authenticate', function(req, res) {
-    userController.authenticate(req, res)
-});
-
 
 // update user
 router.post('/:id',  function(req, res) {

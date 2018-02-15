@@ -9,6 +9,7 @@ var morgan      = require('morgan'),
 
 var annoncesRoutes = require('./api/routes/bonCoinRoute'); //importing route
 var userRoutes = require('./api/routes/userRoute');
+var authRoutes = require('./api/routes/authRoute');
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
@@ -26,7 +27,9 @@ app.use(bodyParser.json());
 
 var middlewareAuth = require('./api/middlewares/authenticateMiddleware');
 
-app.use('/users', userRoutes);
+
+app.use('/auth', authRoutes);
+app.use('/users', [middlewareAuth, userRoutes]);
 app.use('/annonces', [middlewareAuth, annoncesRoutes]);
 
 
