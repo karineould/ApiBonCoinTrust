@@ -30,6 +30,7 @@ exports.createUser = function(req, res) {
 
 };
 
+
 exports.createAdmin = function(req, res) {
     var secret_access = req.body.secret_access;
     var email = req.body.email;
@@ -57,8 +58,8 @@ exports.createAdmin = function(req, res) {
         console.log('Admin saved successfully');
         res.json({ admin: result._id});
     });
-
 };
+
 
 exports.authenticate = function(req, res){
     // find the user
@@ -85,12 +86,10 @@ exports.authenticate = function(req, res){
                 const payload = {
                     admin: user.admin
                 };
-                console.log(payload);
 
                 var token = jwt.sign(payload, app.get('superSecret'), {
                     expiresIn: 1440 // expires in 24 hours
                 });
-
 
                 // return the information including token as JSON
                 res.json({
@@ -99,7 +98,6 @@ exports.authenticate = function(req, res){
                     token: token
                 });
             }
-
         }
 
     });

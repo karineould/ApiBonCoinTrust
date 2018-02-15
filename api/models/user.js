@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var uniqueValidator = require('mongoose-unique-validator');
 
-// set up a mongoose model and pass it using module.exports
+// Create user schema
 var UserSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -17,6 +17,7 @@ var UserSchema = new mongoose.Schema({
     isPro: Boolean
 }, {timestamps: true});
 
+//Check validation on fields
 UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
 
 module.exports = mongoose.model('User', UserSchema);

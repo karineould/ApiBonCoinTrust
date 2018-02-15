@@ -1,6 +1,9 @@
 const lbc = require('leboncoin-client');
 
 exports.list_all = function(req, res) {
+    var startPage = req.query.pageStart;
+    var endPage = req.query.pageEnd;
+
     var query = {
         query: req.query.search,
         region_or_department: 'ile_de_france',
@@ -11,7 +14,7 @@ exports.list_all = function(req, res) {
     };
 
 
-    lbc.search(query, 1, 5) // browse pages 1 to 5
+    lbc.search(query, startPage, endPage)
         .then(function(items) {
             res.send(items);
         }, function(error) {
@@ -33,11 +36,6 @@ exports.detail = function(req, res) {
 
 };
 
-exports.test = function(req, res) {
-
-};
-//
-//
 // exports.read_a_task = function(req, res) {
 //     Task.findById(req.params.taskId, function(err, task) {
 //         if (err)

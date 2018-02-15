@@ -2,8 +2,7 @@ var express = require('express');
 var port = process.env.PORT || 3000;
 var app = module.exports = express();
 
-var morgan      = require('morgan'),
-    mongoose    = require('mongoose'),
+var mongoose    = require('mongoose'),
     bodyParser = require('body-parser'),
     config = require('./config');
 

@@ -3,7 +3,6 @@ var app = require('../../server');
 
 // route middleware to verify a token
 module.exports  = function(req, res, next) {
-
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
@@ -22,13 +21,11 @@ module.exports  = function(req, res, next) {
         });
 
     } else {
-
         // if there is no token
         // return an error
         return res.status(403).send({
             success: false,
             message: 'No token provided.'
         });
-
     }
 };
