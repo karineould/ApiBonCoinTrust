@@ -3,14 +3,14 @@ var router = express.Router();
 var bonCoin = require('../controllers/bonCoinController');
 
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
     return bonCoin.list_all(req, res);
 });
 
 // .post(bonCoin.create_a_task);
 
 
-router.get('/:id', function(req, res, next) {
+router.get('/:id', function(req, res) {
     return bonCoin.detail(req, res);
 });
 //     .put(bonCoin.update_a_task)

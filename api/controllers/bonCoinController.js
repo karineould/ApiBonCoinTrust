@@ -1,53 +1,39 @@
-const leboncoin = require('leboncoin-api');
+const lbc = require('leboncoin-client');
 
 exports.list_all = function(req, res) {
+    var query = {
+        query: req.query.search,
+        region_or_department: 'ile_de_france',
+        sellers: 'professionnels',
+        sort: 'date',
+        titles_only: false,
+        urgent_only: false
+    };
 
-    var query = req.query.search;
-    // var category = req.query.category;
-    var region = req.query.region;
 
-    var search = new leboncoin.Search()
-        .setPage(1)
-        .setQuery(query)
-        .setFilter(leboncoin.FILTERS.PROFESSIONNELS)
-        // .setCategory("locations");
-        .setRegion("ile_de_france");
-        // .setRegion("ilgit se_de_france");
-        // .addSearchExtra("mrs", 250) // min rent
-        // .addSearchExtra("mre", 1250); // min rent
+    lbc.search(query, 1, 5) // browse pages 1 to 5
+        .then(function(items) {
+            res.send(items);
+        }, function(error) {
+            res.send(error);
+        });
 
-    search.run().then(function (data) {
-        res.json(data);
-        // res.json(data.page);
-        // console.log(data.page); // the current page
-        // console.log(data.nbResult); // the number of results for this search
-        // console.log(data.results); // the array of results
-        // data.results[0].getDetails().then(function (details) {
-        //     res.json(details);
-        //     // console.log(details); // the item 0 with more data such as description, all images, author, ...
-        // }, function (err) {
-        //     console.error(err);
-        // });
-        //
-        // data.results[0].getPhoneNumber().then(function (phoneNumer) {
-        //     console.log(phoneNumer); // the phone number of the author if available
-        // }, function (err) {
-        //     console.error(err); // if the phone number is not available or not parsable (image -> string)
-        // });
-    }, function (err) {
-        console.error(err);
-    });
-    // Task.find({}, function(err, task) {
-    //     if (err)
-    //         res.send(err);
-    //     res.json(task);
-    // });
 };
 
 
-
-//
 exports.detail = function(req, res) {
+    var id = parseInt(req.params.id);
+
+    lbc.get(id)
+        .then(function(item) {
+            res.send(item);
+        }, function(error) {
+            res.send(error);
+        });
+
+};
+
+exports.test = function(req, res) {
 
 };
 //
