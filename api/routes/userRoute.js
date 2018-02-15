@@ -7,6 +7,16 @@ router.get('/', function(req, res) {
     userController.findAll(req, res)
 });
 
+//get all users who are clients
+router.get('/client', function(req, res) {
+    userController.findAllByClient(req, res)
+});
+
+//get all users who are pro
+router.get('/pro', function(req, res) {
+    userController.findAllByPro(req, res)
+});
+
 //get one user
 router.get('/:id',  function(req, res) {
     userController.findById(req, res)

@@ -12,6 +12,7 @@ exports.list_all = function(req, res) {
         .setFilter(leboncoin.FILTERS.PROFESSIONNELS)
         // .setCategory("locations");
         .setRegion("ile_de_france");
+        // .setRegion("ilgit se_de_france");
         // .addSearchExtra("mrs", 250) // min rent
         // .addSearchExtra("mre", 1250); // min rent
 

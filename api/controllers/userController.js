@@ -7,6 +7,21 @@ exports.findAll = function(req, res) {
         res.json(users);
     });
 };
+
+exports.findAllByClient = function(req, res) {
+    User.find({'isPro': false}, function(err, users) {
+        if (err) res.json(err);
+        res.json(users);
+    });
+};
+
+exports.findAllByPro = function(req, res) {
+    User.find({'isPro': true}, function(err, users) {
+        if (err) res.json(err);
+        res.json(users);
+    });
+};
+
 exports.findById = function(req, res) {
     var id = req.params.id;
     User.findOne({'_id':id},function(err, result) {
