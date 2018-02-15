@@ -13,7 +13,8 @@ var UserSchema = new mongoose.Schema({
     },
     admin: Boolean,
     hash: String,
-    salt: String
+    salt: String,
+    isPro: Boolean
 }, {timestamps: true});
 
 UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});

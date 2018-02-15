@@ -7,13 +7,15 @@ var userController = require('./userController');
 exports.createUser = function(req, res) {
     var email = req.body.email;
     var password = userController.cryptPassword(req.body.password);
+    var isPro = req.body.isPro;
 
     // create a sample user
     var newUser = new User({
         email: email,
         hash: password.hash,
         salt: password.salt,
-        admin: false
+        admin: false,
+        isPro: isPro
     });
 
     // save the sample user
@@ -34,14 +36,16 @@ exports.createAdmin = function(req, res) {
     var password = userController.cryptPassword(req.body.password);
 
     if (!secret_access) return res.status(401).send({ auth: false, message: 'No secret token provided.' });
-    if (secret_access != 'secret_access') return res.status(405).send({ auth: false, message: 'No allowed' });
+    if (secret_access != app.get('secret_access_create_admin')) return res.status(405).send({ auth: false, message: 'No allowed' });
 
     // create a sample user
     var newAdmin = new User({
         email: email,
         hash: password.hash,
         salt: password.salt,
-        admin: true
+        admin: true,
+        isPro: false
+
     });
 
     // save the sample user

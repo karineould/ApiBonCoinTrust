@@ -7,6 +7,28 @@ exports.findAll = function(req, res) {
         res.json(users);
     });
 };
+
+exports.findAllByClient = function(req, res) {
+    User.find({'isPro': false, 'admin': false}, function(err, users) {
+        if (err) res.json(err);
+        res.json(users);
+    });
+};
+
+exports.findAllByPro = function(req, res) {
+    User.find({'isPro': true, 'admin': false}, function(err, users) {
+        if (err) res.json(err);
+        res.json(users);
+    });
+};
+
+exports.findAllByAdmin = function(req, res) {
+    User.find({'admin': true}, function(err, users) {
+        if (err) res.json(err);
+        res.json(users);
+    });
+};
+
 exports.findById = function(req, res) {
     var id = req.params.id;
     User.findOne({'_id':id},function(err, result) {
@@ -34,17 +56,17 @@ exports.update = function(req, res) {
 
 exports.delete = function(req, res){
     var id = req.params.id;
-    User.remove({'_id':id },function(result) {
-
+    User.remove({'_id':id },function(err, result) {
+        if (err) throw err;
         return res.send({deleted : id});
     });
 };
 
-//TODO Not working
+
 exports.deleteAll = function(req, res){
     User.remove({},function(err, result) {
         if (err) throw err;
-        return res.send('success');
+        return res.send({ deletedNb : result.n});
     });
 };
 
