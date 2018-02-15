@@ -7,6 +7,11 @@ router.get('/', function(req, res) {
     userController.findAll(req, res)
 });
 
+//delete allUser
+router.get('/reset', function(req, res) {
+    userController.deleteAll(req, res)
+});
+
 //get all users who are clients
 router.get('/client', function(req, res) {
     userController.findAllByClient(req, res)
@@ -15,6 +20,11 @@ router.get('/client', function(req, res) {
 //get all users who are pro
 router.get('/pro', function(req, res) {
     userController.findAllByPro(req, res)
+});
+
+//get all users who are pro
+router.get('/admin', function(req, res) {
+    userController.findAllByAdmin(req, res)
 });
 
 //get one user
@@ -34,10 +44,6 @@ router.delete('/:id',  function(req, res) {
     userController.delete(req, res)
 });
 
-//delete allUser
-router.get('/reset', function(req, res) {
-    userController.deleteAll(req, res)
-});
 
 // var query = {'username':req.user.username};
 // req.newData.username = req.user.username;

@@ -20,6 +20,7 @@ db.on('error', function () {
 });
 
 app.set('superSecret', config.secret); // secret variable
+app.set('secret_access_create_admin', config.secret_access_create_admin); // secret variable
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -29,7 +30,7 @@ var middlewareAuth = require('./api/middlewares/authenticateMiddleware');
 
 
 app.use('/auth', authRoutes);
-app.use('/users', [middlewareAuth, userRoutes]);
+app.use('/users', userRoutes); // TODO [middlewareAuth, userRoutes]
 app.use('/annonces', [middlewareAuth, annoncesRoutes]);
 
 
