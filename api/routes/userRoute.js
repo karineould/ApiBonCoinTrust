@@ -22,14 +22,15 @@ router.put('/createAdmin', function(req, res) {
     userController.createAdmin(req, res)
 });
 
-// update user
-router.post('/:id',  function(req, res) {
-    userController.update(req, res)
-});
-
 //authenticate user
 router.post('/authenticate', function(req, res) {
     userController.authenticate(req, res)
+});
+
+
+// update user
+router.post('/:id',  function(req, res) {
+    userController.update(req, res)
 });
 
 

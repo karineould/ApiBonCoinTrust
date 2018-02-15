@@ -1,4 +1,5 @@
 var jwt = require('jsonwebtoken');
+var app = require('../../server');
 
 // route middleware to verify a token
 module.exports  = function(req, res, next) {
