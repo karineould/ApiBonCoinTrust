@@ -25,7 +25,6 @@ exports.update = function(req, res) {
     User.findByIdAndUpdate({"_id":id}, updates,
         function (err, result) {
             if (err) return console.log(err);
-
             console.log(result._id);
             console.log('Updated '+ result._id +' user');
             return res.sendStatus(202);
@@ -36,14 +35,16 @@ exports.update = function(req, res) {
 exports.delete = function(req, res){
     var id = req.params.id;
     User.remove({'_id':id },function(result) {
-        console.log(result);
+
         return res.send({deleted : id});
     });
 };
 
+//TODO Not working
 exports.deleteAll = function(req, res){
-    User.remove({},function(result) {
-        return res.send(result);
+    User.remove({},function(err, result) {
+        if (err) throw err;
+        return res.send('success');
     });
 };
 
@@ -53,7 +54,8 @@ exports.checkAuth = function(req, res){
 
 exports.cryptPassword = function(password) {
     var salt = crypto.randomBytes(16).toString('hex');
-    return crypto.pbkdf2Sync(password, salt, 10000, 512, 'sha512').toString('hex');
+    var hash = crypto.pbkdf2Sync(password, salt, 10000, 512, 'sha512').toString('hex');
+    return {salt: salt, hash: hash};
 };
 
 exports.checkPassword = function(req, password, salt) {

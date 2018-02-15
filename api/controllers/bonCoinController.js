@@ -9,9 +9,9 @@ exports.list_all = function(req, res) {
     var search = new leboncoin.Search()
         .setPage(1)
         .setQuery(query)
-        .setFilter(leboncoin.FILTERS.PARTICULIER)
-        .setCategory("locations");
-        // .setRegion("ilgit se_de_france");
+        .setFilter(leboncoin.FILTERS.PROFESSIONNELS)
+        // .setCategory("locations");
+        .setRegion("ile_de_france");
         // .addSearchExtra("mrs", 250) // min rent
         // .addSearchExtra("mre", 1250); // min rent
 

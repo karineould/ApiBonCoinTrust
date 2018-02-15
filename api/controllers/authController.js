@@ -11,7 +11,8 @@ exports.createUser = function(req, res) {
     // create a sample user
     var newUser = new User({
         email: email,
-        password: password,
+        hash: password.hash,
+        salt: password.salt,
         admin: false
     });
 
@@ -38,7 +39,8 @@ exports.createAdmin = function(req, res) {
     // create a sample user
     var newAdmin = new User({
         email: email,
-        password: password,
+        hash: password.hash,
+        salt: password.salt,
         admin: true
     });
 
