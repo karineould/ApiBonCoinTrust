@@ -9,6 +9,7 @@ var mongoose    = require('mongoose'),
 var annoncesRoutes = require('./api/routes/bonCoinRoute'); //importing route
 var userRoutes = require('./api/routes/userRoute');
 var authRoutes = require('./api/routes/authRoute');
+var avisRoutes = require('./api/routes/avisRoute');
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
@@ -31,7 +32,7 @@ var middlewareAuth = require('./api/middlewares/authenticateMiddleware');
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes); // TODO [middlewareAuth, userRoutes]
 app.use('/annonces', annoncesRoutes); // TODO [middlewareAuth, annoncesRoutes]
-
+app.use('/avis', avisRoutes)
 
 
 
