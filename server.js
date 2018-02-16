@@ -6,7 +6,7 @@ var mongoose    = require('mongoose'),
     bodyParser = require('body-parser'),
     config = require('./config');
 
-var annoncesRoutes = require('./api/routes/bonCoinRoute'); //importing route
+var annoncesRoutes = require('./api/routes/annonceRoute'); //importing route
 var userRoutes = require('./api/routes/userRoute');
 var authRoutes = require('./api/routes/authRoute');
 var avisRoutes = require('./api/routes/avisRoute');
@@ -30,9 +30,9 @@ var middlewareAuth = require('./api/middlewares/authenticateMiddleware');
 
 
 app.use('/auth', authRoutes);
-app.use('/users', userRoutes); // TODO [middlewareAuth, userRoutes]
-app.use('/annonces', annoncesRoutes); // TODO [middlewareAuth, annoncesRoutes]
-app.use('/avis', avisRoutes)
+app.use('/users', [middlewareAuth, userRoutes]); // TODO [middlewareAuth, userRoutes]
+app.use('/annonces', [middlewareAuth, annoncesRoutes]);
+app.use('/avis', [middlewareAuth, avisRoutes]);
 
 
 

@@ -13,24 +13,16 @@ router.get('/annonces', function(req, res) {
     avisController.findAllByAnnonce(req, res)
 });
 
-//get one avis by annonce
-router.get('/annonces/:id', function(req, res) {
-    avisController.findOneByAnnonce(req, res)
-});
-
-//get all avis by client
-router.get('/clients', function(req, res) {
-    avisController.findAllByClient(req, res)
-});
-
-//get one avis by client
-router.get('/clients/:id', function(req, res) {
-    avisController.findOneByClient(req, res)
-});
 
 //create avis
 router.put('/createAvis', function(req, res) {
     avisController.createAvis(req, res)
+});
+
+
+//delete avis
+router.delete('/:id', function(req, res) {
+    avisController.delete(req, res)
 });
 
 module.exports = router;

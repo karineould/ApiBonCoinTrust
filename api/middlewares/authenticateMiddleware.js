@@ -8,7 +8,6 @@ module.exports  = function(req, res, next) {
 
     // decode token
     if (token) {
-
         // verifies secret and checks exp
         jwt.verify(token, app.get('superSecret'), function(err, decoded) {
             if (err) {
@@ -16,6 +15,9 @@ module.exports  = function(req, res, next) {
             } else {
                 // if everything is good, save to request for use in other routes
                 req.decoded = decoded;
+                res.locals.user_id = req.decoded.user_id;
+                res.locals.admin = req.decoded.admin;
+                res.locals.isPro = req.decoded.isPro;
                 next();
             }
         });

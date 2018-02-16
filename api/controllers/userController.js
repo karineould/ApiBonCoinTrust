@@ -1,6 +1,7 @@
 var User   = require('../models/user');
 var crypto = require('crypto');
 
+
 exports.findAll = function(req, res) {
     User.find({}, function(err, users) {
         if (err) res.json(err);
@@ -61,7 +62,7 @@ exports.update = function(req, res) {
 
 exports.delete = function(req, res){
     var id = req.params.id;
-    User.remove({'_id':id },function(err, result) {
+    User.remove({'_id':id },function(err) {
         if (err) throw err;
         return res.send({deleted : id});
     });
@@ -74,6 +75,7 @@ exports.deleteAll = function(req, res){
         return res.send({ deletedNb : result.n});
     });
 };
+
 
 
 exports.cryptPassword = function(password) {

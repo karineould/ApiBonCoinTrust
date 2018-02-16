@@ -84,7 +84,9 @@ exports.authenticate = function(req, res){
                 // create a token with only our given payload
                 // we don't want to pass in the entire user since that has the password
                 const payload = {
-                    admin: user.admin
+                    user_id: user._id,
+                    admin: user.admin,
+                    isPro: user.isPro
                 };
 
                 var token = jwt.sign(payload, app.get('superSecret'), {
