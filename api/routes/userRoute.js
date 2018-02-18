@@ -50,7 +50,7 @@ router.get('/pro', function (req, res, next) {
 });
 
 
-//get all users who are pro
+//get all users who are admin
 router.get('/admin', function (req, res, next) {
     if (res.locals.admin){
         next()

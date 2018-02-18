@@ -2,26 +2,32 @@ var express = require('express');
 var router = express.Router();
 var annonce = require('../controllers/annonceController');
 
-// For
+// if isPro get all annonces of API
+// else if isClient get all annonces of mongodb
 router.get('/', function(req, res) {
     return annonce.listAll(req, res);
 });
 
-// .post(bonCoin.create_a_task);
-
-router.get('/:id', function(req, res) {
-    return annonce.detail(req, res);
-});
-
+// get all annonces of owner
 router.get('/me', function(req, res) {
     return annonce.findAllByPro(req, res);
 });
 
+// get detail of annonce
+router.get('/:id', function(req, res) {
+    return annonce.detail(req, res);
+});
+
+//create annonce
 router.put('/:id', function(req, res) {
     return annonce.createAnnonce(req, res);
 });
-//     .put(bonCoin.update_a_task)
-//     .delete(bonCoin.delete_a_task);
+
+
+// get annonce by filtre
+router.post('/filtre', function(req, res) {
+    return annonce.findByKeywords(req, res);
+});
 
 
 

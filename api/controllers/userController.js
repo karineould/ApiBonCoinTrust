@@ -42,21 +42,31 @@ exports.findById = function(req, res) {
 
 };
 
-
 exports.update = function(req, res) {
     var id = req.params.id;
     var updates = [];
 
-    updates['email'] = req.body.email;
-    updates['password'] = this.cryptPassword(req.body.password);
+    var isAdmin = res.locals.admin;
+    var user_id = res.locals.user_id;
 
-    User.findByIdAndUpdate({"_id":id}, updates,
-        function (err, result) {
-            if (err) return console.log(err);
-            console.log(result._id);
-            console.log('Updated '+ result._id +' user');
-            return res.sendStatus(202);
-        });
+    if(isAdmin || user_id == id){
+        // updates['email'] = req.body.email;
+        // updates['password'] = this.cryptPassword(req.body.password);
+
+        var email = req.body.email;
+        var password = this.cryptPassword(req.body.password);
+
+        User.findByIdAndUpdate(id, { $set: { email: email, password: password} },
+            function (err, result) {
+                if (err) return console.log(err);
+                console.log(result._id);
+                console.log('Updated '+ result._id +' user');
+                return res.sendStatus(202);
+            });
+    } else {
+        res.sendStatus(403);
+    }
+
 };
 
 

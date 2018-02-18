@@ -9,14 +9,28 @@ router.get('/', function(req, res) {
 });
 
 //get all avis by annonce
-router.get('/annonces', function(req, res) {
+/*
+* On récupère tous les avis sur une annonces
+*/
+router.get('/annonces/:id', function(req, res) {
     avisController.findAllByAnnonce(req, res)
 });
 
-
 //create avis
+/*
+* On récupère tous les avis sur une annonces
+*/
 router.put('/createAvis', function(req, res) {
     avisController.createAvis(req, res)
+});
+
+// update avis
+/*
+* On peut modifier soit la note, soit le commentaire de notre avis
+*
+*/
+router.post('/', function(req, res) {
+    avisController.update(req, res)
 });
 
 

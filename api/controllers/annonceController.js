@@ -9,6 +9,7 @@ exports.listAll = function(req, res) {
 
         var query = {
             query: req.query.search,
+            types: 'offres',
             region_or_department: 'ile_de_france',
             sellers: 'professionnels',
             sort: 'date',
@@ -18,7 +19,6 @@ exports.listAll = function(req, res) {
 
         lbc.search(query, startPage, endPage)
             .then(function(items) {
-                console.log(items);
                 res.send(items);
             }, function(error) {
                 res.send(error);
@@ -39,6 +39,11 @@ exports.createAnnonce = function(req, res) {
 
     if (is_pro) {
         var id = parseInt(req.params.id);
+
+        Annonce.find({'annonce_id': id}, function(err, annonces) {
+            if (err) res.json(err);
+            res.status(403).json("Cette annonce appartient à l'user "+ owner);
+        });
 
         lbc.get(id)
             .then(function (item) {
@@ -89,6 +94,21 @@ exports.findAllByPro = function(req, res) {
         if (err) res.json(err);
         res.json(annonces);
     });
+};
+
+exports.findByKeywords = function(req, res) {
+    var startPage = req.query.start;
+    var endPage = req.query.pageEnd;
+    var query = {
+        query: req.body.query
+    };
+
+    lbc.search(query, startPage, endPage)
+        .then(function(items) {
+            res.send(items);
+        }, function(error) {
+            res.send(error);
+        });
 };
 
 // exports.read_a_task = function(req, res) {
