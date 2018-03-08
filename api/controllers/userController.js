@@ -4,8 +4,8 @@ var crypto = require('crypto');
 
 exports.findAll = function(req, res) {
     User.find({}, function(err, users) {
-        if (err) res.json(err);
-        res.json(users);
+        if (err) return res.status(500).json(err);
+        return res.json(users);
     });
 };
 
@@ -44,12 +44,11 @@ exports.findById = function(req, res) {
 
 exports.update = function(req, res) {
     var id = req.params.id;
-    var updates = [];
 
     var isAdmin = res.locals.admin;
     var user_id = res.locals.user_id;
 
-    if(isAdmin || user_id == id){
+    if(isAdmin || user_id === id){
         // updates['email'] = req.body.email;
         // updates['password'] = this.cryptPassword(req.body.password);
 
@@ -64,7 +63,7 @@ exports.update = function(req, res) {
                 return res.sendStatus(202);
             });
     } else {
-        res.sendStatus(403);
+        return res.status(403).json('not allowed');
     }
 
 };

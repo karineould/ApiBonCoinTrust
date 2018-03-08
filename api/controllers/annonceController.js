@@ -19,15 +19,15 @@ exports.listAll = function(req, res) {
 
         lbc.search(query, startPage, endPage)
             .then(function(items) {
-                res.send(items);
+                return res.send(items);
             }, function(error) {
-                res.send(error);
+                return res.status(400).send(error);
             });
 
     } else {
         Annonce.find({}, function(err, annonces) {
-            if (err) res.json(err);
-            res.json(annonces);
+            if (err) return res.status(400).json(err);
+            return res.json(annonces);
         });
     }
 
@@ -41,8 +41,8 @@ exports.createAnnonce = function(req, res) {
         var id = parseInt(req.params.id);
 
         Annonce.find({'annonce_id': id}, function(err, annonces) {
-            if (err) res.json(err);
-            res.status(403).json("Cette annonce appartient à l'user "+ owner);
+            if (err) res.status(500).json(err);
+            return res.status(403).json("Cette annonce appartient à l'user "+ owner);
         });
 
         lbc.get(id)

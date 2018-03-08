@@ -4,11 +4,12 @@ var userController = require('../controllers/userController');
 
 //get all users
 router.get('/', function (req, res, next) {
-    if (res.locals.admin){
-        next()
-    }else {
-        res.sendStatus(403);
-    }
+    // if (res.locals.admin){
+    //     next()
+    // }else {
+    //     res.status(403).json('not allowed');
+    // }
+    next()
 }, function(req, res, next) {
     userController.findAll(req, res, next)
 });
@@ -26,7 +27,7 @@ router.get('/reset',  function (req, res, next) {
 });
 
 
-//get all users who are clients
+//get users who are clients
 router.get('/client', function (req, res, next) {
     if (res.locals.admin){
         next()
@@ -38,7 +39,7 @@ router.get('/client', function (req, res, next) {
 });
 
 
-//get all users who are pro
+//get users who are pro
 router.get('/pro', function (req, res, next) {
     if (res.locals.admin){
         next()
@@ -50,7 +51,7 @@ router.get('/pro', function (req, res, next) {
 });
 
 
-//get all users who are admin
+//get users who are admin
 router.get('/admin', function (req, res, next) {
     if (res.locals.admin){
         next()
