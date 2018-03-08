@@ -94,7 +94,7 @@ exports.cryptPassword = function(password) {
 };
 
 
-exports.checkPassword = function(req, password, salt) {
-    var hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512, 'sha512').toString('hex');
+exports.checkPassword = function(plainPassword, password, salt) {
+    var hash = crypto.pbkdf2Sync(plainPassword, salt, 10000, 512, 'sha512').toString('hex');
     return password === hash;
 };

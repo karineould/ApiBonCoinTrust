@@ -1,6 +1,7 @@
 var express = require('express');
 var port = process.env.PORT || 3000;
 var app = module.exports = express();
+var cors = require('cors');
 
 var mongoose    = require('mongoose'),
     bodyParser = require('body-parser'),
@@ -25,6 +26,7 @@ app.set('secret_access_create_admin', config.secret_access_create_admin); // sec
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(cors());
 
 var middlewareAuth = require('./api/middlewares/authenticate');
 

@@ -62,9 +62,12 @@ exports.createAdmin = function(req, res) {
 
 
 exports.authenticate = function(req, res){
+    var email = req.body.email;
+    var password = req.body.password;
+
     // find the user
     User.findOne({
-        email: req.body.email
+        email: email
     }, function(err, user) {
 
         if (err) {
@@ -75,9 +78,8 @@ exports.authenticate = function(req, res){
         if (!user) {
             res.json({ success: false, message: { email : 'Email incorrect', password : false }  });
         } else if (user) {
-
             // check if password matches
-            if (userController.checkPassword(req, user.password, user.salt)) {
+            if (!userController.checkPassword(password, user.hash, user.salt)) {
                 res.json({ success: false, message: { email : false, password : 'Mot de passe incorrect' }  });
             } else {
 
