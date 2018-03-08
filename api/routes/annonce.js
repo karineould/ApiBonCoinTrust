@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var annonce = require('../controllers/annonceController');
+var annonce = require('../controllers/annonce');
 
 // if isPro get all annonces of API
 // else if isClient get all annonces of mongodb

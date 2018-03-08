@@ -6,10 +6,10 @@ var mongoose    = require('mongoose'),
     bodyParser = require('body-parser'),
     config = require('./config');
 
-var annoncesRoutes = require('./api/routes/annonceRoute'); //importing route
-var userRoutes = require('./api/routes/userRoute');
-var authRoutes = require('./api/routes/authRoute');
-var avisRoutes = require('./api/routes/avisRoute');
+var annoncesRoutes = require('./api/routes/annonce'); //importing route
+var userRoutes = require('./api/routes/user');
+var authRoutes = require('./api/routes/auth');
+var avisRoutes = require('./api/routes/avis');
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-var middlewareAuth = require('./api/middlewares/authenticateMiddleware');
+var middlewareAuth = require('./api/middlewares/authenticate');
 
 
 app.use('/auth', authRoutes);

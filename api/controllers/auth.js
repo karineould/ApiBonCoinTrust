@@ -1,7 +1,7 @@
 var jwt    = require('jsonwebtoken');
 var app = require('../../server');
 var User   = require('../models/user');
-var userController = require('./userController');
+var userController = require('./user');
 
 
 exports.createUser = function(req, res) {
@@ -97,7 +97,9 @@ exports.authenticate = function(req, res){
                 res.json({
                     success: true,
                     message: 'Enjoy your token!',
-                    token: token
+                    token: token,
+                    isAdmin: user.admin,
+                    isPro: user.isPro
                 });
             }
         }

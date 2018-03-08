@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var avisController = require('../controllers/avisController');
+var avisController = require('../controllers/avis');
 
 
 //get all avis
