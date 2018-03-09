@@ -18,6 +18,7 @@ module.exports  = function(req, res, next) {
                 res.locals.user_id = req.decoded.user_id;
                 res.locals.admin = req.decoded.admin;
                 res.locals.isPro = req.decoded.isPro;
+                res.locals.nom = req.decoded.nom;
                 next();
             }
         });

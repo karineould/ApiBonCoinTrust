@@ -32,7 +32,7 @@ var middlewareAuth = require('./api/middlewares/authenticate');
 
 
 app.use('/auth', authRoutes);
-app.use('/users', userRoutes); // TODO [middlewareAuth, userRoutes]
+app.use('/users', [middlewareAuth, userRoutes]); // TODO [middlewareAuth, userRoutes]
 app.use('/annonces', annoncesRoutes);
 app.use('/avis', avisRoutes);
 

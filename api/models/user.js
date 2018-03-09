@@ -11,6 +11,10 @@ var UserSchema = new mongoose.Schema({
         match: [/\S+@\S+\.\S+/, 'is invalid'],
         index: true
     },
+    nom: {
+        type: String,
+        required: [true, "can't be blank"]
+    },
     admin: Boolean,
     hash: String,
     salt: String,

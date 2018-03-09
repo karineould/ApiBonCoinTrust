@@ -52,10 +52,11 @@ exports.update = function(req, res) {
         // updates['email'] = req.body.email;
         // updates['password'] = this.cryptPassword(req.body.password);
 
-        var email = req.body.email;
-        var password = this.cryptPassword(req.body.password);
+        // var email = req.body.email;
+        // var password = this.cryptPassword(req.body.password);
+        var nom = req.body.nom;
 
-        User.findByIdAndUpdate(id, { $set: { email: email, password: password} },
+        User.findByIdAndUpdate(id, { $set: { nom:nom } },
             function (err, result) {
                 if (err) return console.log(err);
                 console.log(result._id);
