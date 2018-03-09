@@ -42,7 +42,7 @@ exports.createAnnonce = function(req, res) {
 
         Annonce.find({'annonce_id': id}, function(err, annonces) {
             if (err) res.status(500).json(err);
-            return res.status(403).json("Cette annonce appartient à l'user "+ owner);
+            // return res.status(403).json("Cette annonce appartient à l'user "+ owner);
         });
 
         lbc.get(id)
