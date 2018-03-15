@@ -42,21 +42,22 @@ exports.createAnnonce = function(req, res) {
 
         Annonce.find({'annonce_id': id}, function(err, annonces) {
             if (err) res.status(500).json(err);
-            // return res.status(403).json("Cette annonce appartient à l'user "+ owner);
-        });
+            if (annonces.length > 0){
+                res.json("Cette annonce appartient à l'user "+ owner);
+            } else {
+                if (req.body.length === 0){
+                    res.status(400).json('no data');
+                }
 
-        lbc.get(id)
-            .then(function (item) {
-                // create a sample avis
                 var newAnnonce = new Annonce({
-                    annonce_id: item.id,
-                    title: item.title,
-                    url: item.url,
-                    category: item.category,
-                    location: item.location,
-                    price: item.price,
-                    date: item.date,
-                    images: item.images,
+                    annonce_id: id,
+                    title: req.body.title,
+                    url: req.body.url,
+                    category: req.body.category,
+                    location: req.body.location,
+                    price: req.body.price,
+                    date: req.body.date,
+                    images: req.body.images,
                     owner: owner
                 });
 
@@ -69,9 +70,9 @@ exports.createAnnonce = function(req, res) {
                     console.log('Annonce saved successfully');
                     res.json({annonce: result.annonce_id});
                 });
-            }, function (error) {
-                res.status(400).json(error);
-            });
+
+            }
+        });
     } else {
         res.sendStatus(403);
     }
@@ -109,6 +110,14 @@ exports.findByKeywords = function(req, res) {
         }, function(error) {
             res.send(error);
         });
+};
+
+exports.delete = function(req, res){
+    var id = req.params.id;
+    Annonce.remove({'_id':id },function(err) {
+        if (err) throw err;
+        return res.send({deleted : id});
+    });
 };
 
 // exports.read_a_task = function(req, res) {

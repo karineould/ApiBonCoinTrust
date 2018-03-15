@@ -29,6 +29,10 @@ router.post('/filtre', function(req, res) {
     return annonce.findByKeywords(req, res);
 });
 
+// delete annonce
+router.delete('/:id', function(req, res) {
+    return annonce.delete(req, res);
+});
 
 
 module.exports = router;
