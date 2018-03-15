@@ -90,7 +90,8 @@ exports.authenticate = function(req, res){
                     user_id: user._id,
                     admin: user.admin,
                     isPro: user.isPro,
-                    nom: user.nom
+                    nom: user.nom,
+                    id: user._id
                 };
 
                 var token = jwt.sign(payload, app.get('superSecret'), {
@@ -104,7 +105,8 @@ exports.authenticate = function(req, res){
                     token: token,
                     isAdmin: user.admin,
                     isPro: user.isPro,
-                    nom: user.nom
+                    nom: user.nom,
+                    id: user._id
                 });
             }
         }

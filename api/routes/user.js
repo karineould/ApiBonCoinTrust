@@ -4,12 +4,11 @@ var userController = require('../controllers/user');
 
 //get all users
 router.get('/', function (req, res, next) {
-    // if (res.locals.admin){
-    //     next()
-    // }else {
-    //     res.status(403).json('not allowed');
-    // }
-    next()
+    if (res.locals.admin){
+        next()
+    }else {
+        res.status(403).json('not allowed');
+    }
 }, function(req, res, next) {
     userController.findAll(req, res, next)
 });
@@ -64,13 +63,7 @@ router.get('/admin', function (req, res, next) {
 
 
 //get one user
-router.get('/:id', function (req, res, next) {
-    if (res.locals.admin){
-        next()
-    }else {
-        res.sendStatus(403);
-    }
-},function(req, res) {
+router.get('/:id', function(req, res) {
     userController.findById(req, res)
 });
 

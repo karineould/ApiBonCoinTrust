@@ -37,7 +37,7 @@ exports.findAllByAdmin = function(req, res) {
 exports.findById = function(req, res) {
     var id = req.params.id;
     User.findOne({'_id':id},function(err, result) {
-        return res.send(result);
+        return res.send([result]);
     });
 
 };

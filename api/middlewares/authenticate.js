@@ -19,6 +19,7 @@ module.exports  = function(req, res, next) {
                 res.locals.admin = req.decoded.admin;
                 res.locals.isPro = req.decoded.isPro;
                 res.locals.nom = req.decoded.nom;
+                res.locals.id = req.decoded.id;
                 next();
             }
         });
