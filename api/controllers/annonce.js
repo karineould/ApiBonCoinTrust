@@ -6,7 +6,6 @@ exports.listAll = function(req, res) {
     if (is_pro) {
         var startPage = req.query.pageStart;
         var endPage = req.query.pageEnd;
-
         var query = {
             query: req.query.search,
             types: 'offres',

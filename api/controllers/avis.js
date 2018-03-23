@@ -14,42 +14,40 @@ exports.findAll = function(req, res) {
 //
 exports.findAllByAnnonce = function(req, res) {
     var id = req.params.id;
-    if(id){
-        Avis.find({'annonce': id}, function(err, avis) {
-            if (err) res.json(err);
-            res.json(avis);
-        });
-    }
-    res.status(404).json("pas d'id dans votre route");
+
+    Avis.find({'annonce': id}, function(err, avis) {
+        if (err) res.json(err);
+        res.json(avis);
+    }).populate('annonce', 'title').populate('owner', 'nom');
 };
 
 
 exports.createAvis = function(req, res) {
-    var id = parseInt(req.body.id);
-    var owner = res.locals.user_id;
-    var note = req.body.note;
+    var id = req.body.id;
+    var owner = res.locals.id;
+    var note = parseInt(req.body.note);
     var commentaire = req.body.commentaire;
     // var annonce;
 
     //get the annonce
-    Annonce.findOne({'annonce_id':id},function(err, annonce) {
+    Annonce.findById(id,function(err, annonce) {
         if (err){
             res.status(400).json(err);
         }
         // return result;
         if(annonce){
-            avis = Avis.findOne({'annonce':id, 'owner': owner},function(err, result) {
-                if(result){
-                    res.status(403).json('Vous avez déjà commenté cette annonce, veuillez modifier votre avis');
-                }
-            });
+            // avis = Avis.findOne({'annonce':id, 'owner': owner},function(err, result) {
+            //     if(result){
+            //         res.status(403).json('Vous avez déjà commenté cette annonce, veuillez modifier votre avis');
+            //     }
+            // });
 
             // create a sample avis
             var newAvis = new Avis({
-                owner: owner,
+                owner: mongoose.Types.ObjectId(owner),
                 note: note,
                 commentaire: commentaire,
-                annonce: mongoose.Types.ObjectId(annonce.annonce_id)
+                annonce: mongoose.Types.ObjectId(id)
             });
 
             // save the sample avis
@@ -89,7 +87,7 @@ exports.update = function(req, res) {
 
 exports.delete = function(req, res) {
     var id = req.params.id;
-    Annonce.remove({'_id':id },function(err) {
+    Avis.remove({'_id':id },function(err) {
         if (err) throw err;
         return res.send({deleted : id});
     });
