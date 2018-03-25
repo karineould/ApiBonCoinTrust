@@ -8,6 +8,7 @@ exports.createUser = function(req, res) {
     var email = req.body.email;
     var password = userController.cryptPassword(req.body.password);
     var isPro = req.body.isPro;
+    var nom = req.body.nom;
 
     // create a sample user
     var newUser = new User({
@@ -15,17 +16,18 @@ exports.createUser = function(req, res) {
         hash: password.hash,
         salt: password.salt,
         admin: false,
-        isPro: isPro
+        isPro: isPro,
+        nom: nom
     });
 
     // save the sample user
     newUser.save(function(err, result) {
         if (err){
-            res.status(400).json(err);
+            res.json(err);
+        } else {
+            console.log('User saved successfully');
+            res.json({ user: result._id});
         }
-
-        console.log('User saved successfully');
-        res.json({ user: result._id});
     });
 
 };

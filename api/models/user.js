@@ -7,21 +7,24 @@ var UserSchema = new mongoose.Schema({
         type: String,
         lowercase: true,
         unique: true,
-        required: [true, "can't be blank"],
-        match: [/\S+@\S+\.\S+/, 'is invalid'],
+        required: [true, "L'email doit être renseigné"],
+        match: [/\S+@\S+\.\S+/, 'Format email invalide'],
         index: true
     },
     nom: {
         type: String,
-        required: [true, "can't be blank"]
+        required: [true, "Le nom doit être renseigné"]
     },
     admin: Boolean,
     hash: String,
     salt: String,
-    isPro: Boolean
+    isPro: {
+        type: Boolean,
+        required: [true, "Veuillez saisir s'il est pro ou non"]
+    },
 }, {timestamps: true});
 
 //Check validation on fields
-UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
+UserSchema.plugin(uniqueValidator, {message: 'Email existe déjà'});
 
 module.exports = mongoose.model('User', UserSchema);
