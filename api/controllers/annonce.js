@@ -39,10 +39,11 @@ exports.createAnnonce = function(req, res) {
     if (is_pro) {
         var id = parseInt(req.params.id);
 
-        Annonce.find({'annonce_id': id}, function(err, annonces) {
+        Annonce.findOne({'annonce_id': id}, function(err, annonces) {
             if (err) res.status(500).json(err);
-            if (annonces.length > 0){
-                res.json("Cette annonce appartient à l'user "+ owner);
+            console.log(annonces);
+            if (annonces){
+                res.json({ error : "Cette annonce appartient à l'user " + annonces.owner});
             } else {
                 if (req.body.length === 0){
                     res.status(400).json('no data');
